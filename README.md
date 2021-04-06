@@ -14,4 +14,5 @@
   ```bash
    pip install -r requeriments.txt
   ```
-    
+## BD
+  * Configure the settings.py to connect to the database. 
