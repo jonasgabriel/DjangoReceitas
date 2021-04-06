@@ -83,8 +83,8 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'receitasdb',
-        'USER': 'jonas',
-        'PASSWORD': 'jonas',
+        'USER': '',
+        'PASSWORD': '',
         'HOST': 'localhost',
         'POST': '',
     }
