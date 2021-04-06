@@ -7,9 +7,9 @@
     <img src="{% static 'img/core-img/pizza.png' %}" alt="">
 </div>
 
-{% include 'partials/../partials/../partials/../partials/_search.html' %}
+{% include 'partials/_search.html' %}
 
-{% include 'partials/../partials/../partials/../partials/_menu.html' %}
+{% include 'partials/_menu.html' %}
 
 <!-- ##### Contact Form Area Start ##### -->
 {% if not request.user.is_authenticated %}
@@ -54,5 +54,5 @@ function exibirCriarConta()
 }
 </script>
 
-{% include 'partials/../partials/../partials/../partials/_footer.html' %}
+{% include 'partials/_footer.html' %}
 {% endblock %}

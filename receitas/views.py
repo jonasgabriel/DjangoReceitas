@@ -6,13 +6,15 @@ from .models import Receita
 
 
 def index(request):
-    receitas = Receita.objects.filter(publicar=True)
-    paginator = Paginator(receitas, 3)
-    page = request.GET.get('page')
-    page_obj = paginator.get_page(page)
+    if Receita.objects.filter(publicar=True).exists():
+        receitas = Receita.objects.filter(publicar=True)
+        paginator = Paginator(receitas, 3)
+        page = request.GET.get('page')
+        page_obj = paginator.get_page(page)
 
-    receitas_dict = {'page_obj': page_obj}
-    return render(request, 'templates/index.html', receitas_dict)
+        receitas_dict = {'page_obj': page_obj}
+        return render(request, 'index.html', receitas_dict)
+    return render(request, 'index.html')
 
 
 def receita(request, receita_id):
@@ -20,7 +22,7 @@ def receita(request, receita_id):
     receitas = {'receitas': receitas,
                 'categorias': Receita.objects.values('categoria').distinct('categoria')
                 }
-    return render(request, 'templates/receita.html', receitas)
+    return render(request, 'receita.html', receitas)
 
 
 def buscar_receita(request):
@@ -31,7 +33,7 @@ def buscar_receita(request):
             lista_receitas = lista_receitas.filter(nome_receita__icontains=nome_a_buscar)
 
     dados = {'receitas': lista_receitas}
-    return render(request, 'templates/buscar.html', dados)
+    return render(request, 'buscar.html', dados)
 
 
 def cria_receita(request):
@@ -51,7 +53,7 @@ def cria_receita(request):
                 receita = Receita.objects.create(pessoa=pessoa, **dados)
                 receita.save()
             return redirect('dashboard')
-        return render(request, 'templates/usuarios/cria_receita.html')
+        return render(request, 'usuarios/cria_receita.html')
     return redirect('index')
 
 
@@ -67,7 +69,7 @@ def editar_receita(request, receita_id):
     if request.user.is_authenticated:
         receita = get_object_or_404(Receita, pk=receita_id)
         receita_a_editar = {'receita': receita}
-        return render(request, 'templates/usuarios/edita_receita.html', receita_a_editar)
+        return render(request, 'usuarios/edita_receita.html', receita_a_editar)
     return redirect('index')
 
 
@@ -85,4 +87,4 @@ def atualiza_receita(request):
                 receita.foto = request.FILES['foto_receita']
             receita.save()
         return redirect('dashboard')
-    return render(request, 'templates/index.html')
+    return render(request, 'index.html')
