@@ -12,6 +12,18 @@
 
     {% include 'partials/_menu.html' %}
 
+    <div class="contact-area section-padding-0-80">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="section-heading">
+                        <h3>Olá {{ user.username }}</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- ##### Best Receipe Area Start ##### -->
     <section class="best-receipe-area">
         <div class="container">
@@ -29,6 +41,8 @@
                                 <div class="receipe-content">
                                     <a href="{% url 'receita' receita.id %}">
                                         <h5>{{ receita.nome_receita }}</h5>
+                                        <a href="{% url 'deletar_receita' receita.id %}" type="button" class="btn-danger p-2 ">DELETAR</a>
+                                        <a href="{% url 'editar_receita' receita.id %}" type="button" class="btn-warning p-2 ">EDITAR</a>
                                     </a>
                                 </div>
                             </div>

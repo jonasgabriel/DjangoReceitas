@@ -13,12 +13,13 @@ def index(request):
         page_obj = paginator.get_page(page)
 
         receitas_dict = {'page_obj': page_obj}
-        return render(request, 'in', receitas_dict)
+        return render(request, 'index.html', receitas_dict)
     return render(request, 'index.html')
 
 
 def receita(request, receita_id):
     receitas = get_object_or_404(Receita, pk=receita_id)
+
     receitas = {'receitas': receitas,
                 'categorias': Receita.objects.values('categoria').distinct('categoria')
                 }
