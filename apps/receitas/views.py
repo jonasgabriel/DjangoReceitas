@@ -13,7 +13,7 @@ def index(request):
         page_obj = paginator.get_page(page)
 
         receitas_dict = {'page_obj': page_obj}
-        return render(request, 'index.html', receitas_dict)
+        return render(request, 'in', receitas_dict)
     return render(request, 'index.html')
 
 
