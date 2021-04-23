@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+    <!-- Preloader -->
+    <div id="preloader">
+        <i class="circle-preloader"></i>
+        <img src="{% static 'img/core-img/pizza.png' %}" alt="">
+    </div>
+
+    {% include 'partials/_search.html' %}
+
+    {% include 'partials/_menu.html' %}
+
+    <!-- ##### Best Receipe Area Start ##### -->
+    <section class="best-receipe-area">
+        <div class="container">
+            <div class="row">
+                <!-- Single Best Receipe Area -->
+                {% if page_obj %}
+                    {% for receita in page_obj %}
+                        <div class="col-12 col-sm-6 col-lg-4">
+                            <div class="single-best-receipe-area mb-30">
+                                {% if receita.foto == '' %}
+                                    <img src="{% static 'img/bg-img/foto_receita.png' %}" alt=""/>
+                                {% else %}
+                                    <img src="{{ receita.foto.url }}" alt="" />
+                                {% endif %}
+                                <div class="receipe-content">
+                                    <a href="{% url 'receita' receita.id %}">
+                                        <h5>{{ receita.nome_receita }}</h5>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+
+                    {% if page_obj.has_other_pages %}
+                        <section class="top-catagory-area section-padding-20-0">
+                            <div class="container">
+
+                                <ul class="pagination">
+                                    {% if page_obj.has_previous %}
+                                        <li class="page-item">
+                                            <a href="?page={{ page_obj.previous_page_number }}" class="page-link">&laquo;</a>
+                                        </li>
+                                    {% else %}
+                                        <li class="page-item disabled">
+                                            <a class="page-link">&laquo;</a>
+                                        </li>
+                                    {% endif %}
+
+                                    {% for page in page_obj.paginator.page_range %}
+                                        {% if page_obj.number == page %}
+                                            <li class="page-item active">
+                                                <a class="page-link">{{ page }}</a>
+                                            </li>
+                                        {% else %}
+                                            <li class="page-item">
+                                                <a href="?page={{ page }}" class="page-link">{{ page }}</a>
+                                            </li>
+                                        {% endif %}
+                                    {% endfor %}
+
+                                    {% if page_obj.has_next  %}
+                                        <li class="page-item">
+                                            <a href="?page={{ page_obj.next_page_number }}" class="page-link">&raquo;</a>
+                                        </li>
+                                    {% else %}
+                                        <li class="page-item disabled">
+                                            <a class="page-link">&raquo;</a>
+                                        </li>
+                                    {% endif %}
+
+                                </ul>
+
+                            </div>
+                        </section>
+                    {% endif %}
+                {% endif %}
+            </div>
+        </div>
+    </section>
+    <!-- ##### Best Receipe Area End ##### -->
+
+    {% include 'partials/_footer.html' %}
+
+
+{% endblock %}
